@@ -44,3 +44,5 @@ ap.on('play', async function () {
             }
         ])
 });
+
+document.addEventListener('click', () => {if (!init) {ap.play()}})
