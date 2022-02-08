@@ -38,7 +38,7 @@ ap.on('play', async function () {
             {
                 name: 'duck radio',
                 artist: 'duckr',
-                url: 'http://educadora.ntelecom.com.br:18120/stream',
+                url: 'http://radio.letonet.fr:8000/duck-radio',
                 cover: 'duck.png',
                 theme: '#ebe857'
             }
