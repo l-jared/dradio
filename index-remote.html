@@ -42,6 +42,9 @@
         p {
             font-size: 18px;
         }
+        .aplayer-icon-loop, .aplayer-icon-order, .aplayer-icon-menu, .aplayer-dtime {
+            display: none !important;
+        }
     </style>
     <link rel="stylesheet" href="https://po5.github.io/dradio/APlayer.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
@@ -61,26 +64,33 @@
     autoplay: true,
     lrcType: false,
     mutex: true,
-    preload: 'none',
+    preload: 'auto',
     audio: [{
         name: 'duck radio',
         artist: 'duckr',
         url: 'https://po5.github.io/dradio/uwu.ogg',
         cover: 'https://po5.github.io/dradio/duck.png',
-        theme: '#ebe857'
+        theme: '#ebe857',
+        loop: 'none'
     }]
 });
 
 let init = false;
+let init2 = false;
 
 ap.on('play', function () {
-    if (init) return;
+    if (init) {
+        if (!init2) ap.list.remove(0);
+        init2 = true;
+        return;
+    }
     init = true;
+    ap.notice('Welcome to the duckstream', 2000);
     ap.addAudio([
             {
                 name: 'duck radio',
                 artist: 'duckr',
-                url: 'http://radio.letonet.fr:8000/duck-radio',
+                url: 'http://educadora.ntelecom.com.br:18120/stream',
                 cover: 'https://po5.github.io/dradio/duck.png',
                 theme: '#ebe857'
             }

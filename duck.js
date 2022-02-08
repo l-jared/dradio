@@ -25,11 +25,12 @@ ap.on('play', function () {
         return;
     }
     init = true;
+    ap.notice('Welcome to the duckstream', 2000);
     ap.addAudio([
             {
                 name: 'duck radio',
                 artist: 'duckr',
-                url: 'http://radio.letonet.fr:8000/duck-radio',
+                url: 'http://educadora.ntelecom.com.br:18120/stream',
                 cover: 'duck.png',
                 theme: '#ebe857'
             }
