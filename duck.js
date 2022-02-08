@@ -45,4 +45,5 @@ ap.on('play', async function () {
         ])
 });
 
+document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
 document.addEventListener('click', () => {if (!init) {ap.play()}})
