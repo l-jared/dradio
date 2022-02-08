@@ -4,7 +4,7 @@ const ap = new APlayer({
     autoplay: true,
     lrcType: false,
     mutex: true,
-    preload: 'auto',
+    preload: 'none',
     audio: [{
         name: 'duck radio',
         artist: 'duckr',
@@ -18,14 +18,22 @@ const ap = new APlayer({
 let init = false;
 let init2 = false;
 
-ap.on('play', function () {
+function wait(ms) {
+  return new Promise(rs => setTimeout(rs, ms));
+}
+
+ap.on('play', async function () {
+    await wait(1000);
+
     if (init) {
-        if (!init2) ap.list.remove(0);
+        if (!init2) {
+            ap.list.remove(0);
+            ap.notice('Welcome to the duckstream', 2000);
+        }
         init2 = true;
         return;
     }
     init = true;
-    ap.notice('Welcome to the duckstream', 2000);
     ap.addAudio([
             {
                 name: 'duck radio',
