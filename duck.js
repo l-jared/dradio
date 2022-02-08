@@ -4,23 +4,27 @@ const ap = new APlayer({
     autoplay: true,
     lrcType: false,
     mutex: true,
-    preload: 'none',
+    preload: 'auto',
     audio: [{
         name: 'duck radio',
         artist: 'duckr',
         url: 'uwu.ogg',
         cover: 'duck.png',
-        theme: '#ebe857'
+        theme: '#ebe857',
+        loop: 'none'
     }]
 });
 
 let init = false;
+let init2 = false;
 
 ap.on('play', function () {
-    if (init) return;
+    if (init) {
+        if (!init2) ap.list.remove(0);
+        init2 = true;
+        return;
+    }
     init = true;
-    console.log('loadstart');
-    //ap.volume(0.1, true);
     ap.addAudio([
             {
                 name: 'duck radio',
