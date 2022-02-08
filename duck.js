@@ -4,7 +4,7 @@ const ap = new APlayer({
     autoplay: true,
     lrcType: false,
     mutex: true,
-    preload: 'metadata',
+    preload: 'none',
     audio: [{
         name: 'duck radio',
         artist: 'duckr',
