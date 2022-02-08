@@ -26,8 +26,8 @@ ap.on('play', async function () {
     await wait(1000);
 
     if (init) {
-        if (!init2) {
-            await wait(1000);
+        if (!init2 && ap.list.index != 0) {
+            await wait(100);
             ap.list.remove(0);
             ap.notice('Welcome to the duckstream', 2000);
         }
