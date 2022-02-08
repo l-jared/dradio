@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>duc radio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .container {
+            max-width: 32rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 150px;
+        }
+        h1 {
+            font-size: 54px;
+            color: #333;
+            margin: 30px 0 10px;
+        }
+        h2 {
+            font-size: 22px;
+            color: #555;
+        }
+        h3 {
+            font-size: 24px;
+            color: #555;
+        }
+        hr {
+            display: block;
+            width: 7rem;
+            height: 1px;
+            margin: 2.5rem 0;
+            background-color: #eee;
+            border: 0;
+        }
+        a {
+            color: #08c;
+            text-decoration: none;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://po5.github.io/dradio/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
+    <script src="https://po5.github.io/dradio/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>duc radio</h1>
+        <div id="player1"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+    <script>const ap = new APlayer({
+    element: document.getElementById('player1'),
+    mini: false,
+    autoplay: true,
+    lrcType: false,
+    mutex: true,
+    preload: 'none',
+    audio: [{
+        name: 'duck radio',
+        artist: 'duckr',
+        url: 'https://po5.github.io/dradio/uwu.ogg',
+        cover: 'https://po5.github.io/dradio/duck.png',
+        theme: '#ebe857'
+    }]
+});
+
+let init = false;
+
+ap.on('play', function () {
+    if (init) return;
+    init = true;
+    ap.addAudio([
+            {
+                name: 'duck radio',
+                artist: 'duckr',
+                url: 'http://radio.letonet.fr:8000/duck-radio',
+                cover: 'https://po5.github.io/dradio/duck.png',
+                theme: '#ebe857'
+            }
+        ])
+});
+</script>
+</body>
+</html>
