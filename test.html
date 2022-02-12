@@ -82,6 +82,7 @@
     }]
 });
 
+let init0 = false;
 let init = false;
 
 function wait(ms) {
@@ -91,6 +92,7 @@ function wait(ms) {
 let player;
 
 ap.on('play', async function () {
+    init0 = true;
     if (!init) {
       var visualizer = null;
       var rendering = false;
@@ -263,8 +265,8 @@ ap.on('play', async function () {
     }
 });
 
-document.addEventListener('mousedown', () => {if (!init) {init=true;ap.play()}})
-document.addEventListener('click', () => {if (!init) {init=true;ap.play()}})
+document.addEventListener('mousedown', () => {if (!init0) {init0=true;ap.play()}})
+document.addEventListener('click', () => {if (!init0) {init0=true;ap.play()}})
 
 </script>
 </body>
