@@ -157,8 +157,6 @@ function newContext() {
         sourceNode = audioContext.createBufferSource();
         sourceNode.buffer = buffer;
         connectToAudioAnalyzer(sourceNode);
-
-        sourceNode.start(0);
       }
 
       function playElementSource(element) {
@@ -173,8 +171,6 @@ function newContext() {
 
         sourceNode = audioContext.createMediaElementSource(ap.audio);
         connectToAudioAnalyzer(sourceNode);
-
-        sourceNode.start(0);
       }
 
       function loadLocalFiles(files, index = 0) {
