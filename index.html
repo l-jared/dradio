@@ -50,6 +50,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
     <script src="https://po5.github.io/dradio/APlayer.min.js"></script>
+    <script src="icecast-metadata-player-1.11.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
 </head>
 <body>
@@ -81,6 +82,8 @@ function wait(ms) {
   return new Promise(rs => setTimeout(rs, ms));
 }
 
+let player;
+
 ap.on('play', async function () {
     if (ap.list.index != 0) {
         await wait(100);
@@ -99,11 +102,19 @@ ap.on('play', async function () {
                 theme: '#ebe857'
             }
         ])
+    player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
+      onMetadata: (metadata) => {console.log(metadata)},
+      audioElement: ap.audio,
+      metadataTypes: ["ogg"]
+    });
+    player.play();
     }
 });
 
 document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
 document.addEventListener('click', () => {if (!init) {ap.play()}})
+
+
 </script>
 </body>
 </html>
