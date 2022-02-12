@@ -91,6 +91,9 @@ function wait(ms) {
 
 let player;
 
+function newContext() {
+    if (!init0) {
+      init0 = true;
       var visualizer = null;
       var rendering = false;
       var audioContext = new AudioContext();
@@ -227,6 +230,8 @@ let player;
 
       initPlayer();
       audioContext.createMediaElementSource(ap.audio);
+  }
+}
 
 ap.on('play', async function () {
     init0 = true;
@@ -262,8 +267,8 @@ ap.on('play', async function () {
     }
 });
 
-document.addEventListener('mousedown', () => {if (!init0) {init0=true;ap.play()}})
-document.addEventListener('click', () => {if (!init0) {init0=true;ap.play()}})
+document.addEventListener('mousedown', () => {if (!init0) {newContext();init0=true;ap.play()}})
+document.addEventListener('click', () => {if (!init0) {newContext();init0=true;ap.play()}})
 
 </script>
 </body>
