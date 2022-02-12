@@ -78,7 +78,7 @@
         cover: 'https://po5.github.io/dradio/duck.png',
         theme: '#ebe857',
         loop: 'none',
-        lrc: '[00:00.00]welcome\n[00:01.00]to\n[00:02.00]the\n[00:03.00]duckstream\n[00:05.00]​[00:05.10]uwu'
+        lrc: '[00:00.00]welcome\n[00:02.00]to\n[00:03.00]the\n[00:04.00]duckstream\n[00:05.00]​[00:05.10]uwu'
     }]
 });
 
@@ -91,37 +91,6 @@ function wait(ms) {
 let player;
 
 ap.on('play', async function () {
-    if (ap.list.index != 0) {
-        player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
-          onMetadata: (metadata) => {
-            const stuff = metadata["TITLE"].split(/ - (.*)/);
-            document.querySelector(".aplayer-title").innerText = stuff[1];
-            document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
-          },
-          audioElement: ap.audio,
-          metadataTypes: ["ogg"]
-        });
-        player.play();
-        await wait(100);
-        ap.list.remove(0);
-        //ap.notice('Welcome to the duckstream', 2000);
-        return;
-    }
-    if (!init) {
-    init = true;
-    ap.addAudio([
-            {
-                name: 'duck radio',
-                artist: 'duckr',
-                url: 'https://radio.letonet.fr:8000/duck-radio',
-                cover: 'https://po5.github.io/dradio/duck.png',
-                theme: '#ebe857',
-                lrc: '[00:00.00]With your host: theduckr'
-            }
-        ])
-    }
-
-    $(function() {
       var visualizer = null;
       var rendering = false;
       var audioContext = null;
@@ -260,11 +229,41 @@ ap.on('play', async function () {
 
       initPlayer();
       audioContext.createMediaElementSource(ap.audio);
-    });
+
+    ///
+    if (ap.list.index != 0) {
+        /*player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
+          onMetadata: (metadata) => {
+            const stuff = metadata["TITLE"].split(/ - (.*)/);
+            document.querySelector(".aplayer-title").innerText = stuff[1];
+            document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
+          },
+          audioElement: ap.audio,
+          metadataTypes: ["ogg"]
+        });
+        player.play();*/
+        await wait(100);
+        ap.list.remove(0);
+        //ap.notice('Welcome to the duckstream', 2000);
+        return;
+    }
+    if (!init) {
+    init = true;
+    ap.addAudio([
+            {
+                name: 'duck radio',
+                artist: 'duckr',
+                url: 'https://radio.letonet.fr:8000/duck-radio',
+                cover: 'https://po5.github.io/dradio/duck.png',
+                theme: '#ebe857',
+                lrc: '[00:00.00]With your host: theduckr'
+            }
+        ])
+    }
 });
 
-document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
-document.addEventListener('click', () => {if (!init) {ap.play()}})
+document.addEventListener('mousedown', () => {if (!init) {init=true;ap.play()}})
+document.addEventListener('click', () => {if (!init) {init=true;ap.play()}})
 
 </script>
 </body>
