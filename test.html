@@ -96,7 +96,7 @@ ap.on('play', async function () {
     if (!init) {
       var visualizer = null;
       var rendering = false;
-      var audioContext = null;
+      var audioContext = new AudioContext();
       var sourceNode = null;
       var delayedAudible = null;
       var cycleInterval = null;
@@ -207,8 +207,6 @@ ap.on('play', async function () {
       }
 
       function initPlayer() {
-        audioContext = new AudioContext();
-
         presets = {};
         if (window.butterchurnPresets) {
           Object.assign(presets, butterchurnPresets.getPresets());
