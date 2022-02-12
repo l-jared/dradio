@@ -103,7 +103,11 @@ ap.on('play', async function () {
             }
         ])
     player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
-      onMetadata: (metadata) => {console.log(metadata)},
+      onMetadata: (metadata) => {
+        const stuff = metadata["TITLE"].split(/ - (.*)/);
+        document.querySelector(".aplayer-title").innerText = stuff[1];
+        document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
+      },
       audioElement: ap.audio,
       metadataTypes: ["ogg"]
     });
