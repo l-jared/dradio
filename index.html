@@ -75,6 +75,8 @@
     }]
 });
 
+let init = false;
+
 function wait(ms) {
   return new Promise(rs => setTimeout(rs, ms));
 }
@@ -86,6 +88,8 @@ ap.on('play', async function () {
         ap.notice('Welcome to the duckstream', 2000);
         return;
     }
+    if (!init) {
+    init = true;
     ap.addAudio([
             {
                 name: 'duck radio',
@@ -95,6 +99,7 @@ ap.on('play', async function () {
                 theme: '#ebe857'
             }
         ])
+    }
 });
 
 document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
