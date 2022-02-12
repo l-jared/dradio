@@ -63,7 +63,7 @@
     element: document.getElementById('player1'),
     mini: false,
     autoplay: true,
-    lrcType: false,
+    lrcType: 1,
     mutex: true,
     preload: 'metadata',
     audio: [{
@@ -72,7 +72,8 @@
         url: 'https://po5.github.io/dradio/uwu.ogg',
         cover: 'https://po5.github.io/dradio/duck.png',
         theme: '#ebe857',
-        loop: 'none'
+        loop: 'none',
+        lrc: '[00:00.00]welcome\n[00:01.00]to\n[00:02.00]the\n[00:03.00]duckstream'
     }]
 });
 
@@ -98,7 +99,7 @@ ap.on('play', async function () {
         player.play();
         await wait(100);
         ap.list.remove(0);
-        ap.notice('Welcome to the duckstream', 2000);
+        //ap.notice('Welcome to the duckstream', 2000);
         return;
     }
     if (!init) {
@@ -109,7 +110,8 @@ ap.on('play', async function () {
                 artist: 'duckr',
                 url: 'https://radio.letonet.fr:8000/duck-radio',
                 cover: 'https://po5.github.io/dradio/duck.png',
-                theme: '#ebe857'
+                theme: '#ebe857',
+                lrc: '[00:00.00]With your host: theduckr'
             }
         ])
     }
@@ -117,8 +119,6 @@ ap.on('play', async function () {
 
 document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
 document.addEventListener('click', () => {if (!init) {ap.play()}})
-
-
 </script>
 </body>
 </html>
