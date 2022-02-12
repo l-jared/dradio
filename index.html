@@ -86,6 +86,16 @@ let player;
 
 ap.on('play', async function () {
     if (ap.list.index != 0) {
+        player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
+          onMetadata: (metadata) => {
+            const stuff = metadata["TITLE"].split(/ - (.*)/);
+            document.querySelector(".aplayer-title").innerText = stuff[1];
+            document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
+          },
+          audioElement: ap.audio,
+          metadataTypes: ["ogg"]
+        });
+        player.play();
         await wait(100);
         ap.list.remove(0);
         ap.notice('Welcome to the duckstream', 2000);
@@ -102,16 +112,6 @@ ap.on('play', async function () {
                 theme: '#ebe857'
             }
         ])
-    player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
-      onMetadata: (metadata) => {
-        const stuff = metadata["TITLE"].split(/ - (.*)/);
-        document.querySelector(".aplayer-title").innerText = stuff[1];
-        document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
-      },
-      audioElement: ap.audio,
-      metadataTypes: ["ogg"]
-    });
-    player.play();
     }
 });
 
