@@ -246,9 +246,11 @@ function newContext() {
         if (window.butterchurnPresets) {
           Object.assign(presets, butterchurnPresets.getPresets());
         }
+        /*
         if (window.butterchurnPresetsExtra) {
           Object.assign(presets, butterchurnPresetsExtra.getPresets());
         }
+        */
         presets = _(presets).toPairs().sortBy(([k, v]) => k.toLowerCase()).fromPairs().value();
         presetKeys = _.keys(presets);
         presetIndex = Math.floor(Math.random() * presetKeys.length);
