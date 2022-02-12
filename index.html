@@ -7,17 +7,39 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            background: #191c26;
+        }
+        #canvas {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            min-width: 100vw;
+            min-height: 100vh;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 5s ease-in-out;
+            filter: contrast(30%) brightness(0.2) grayscale(1) sepia(0.7);
         }
         .container {
             max-width: 32rem;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 150px;
+            z-index: 2;
         }
         h1 {
             font-size: 54px;
-            color: #333;
+            color: #dbdbdb;
+            text-shadow: 2px 2px black;
             margin: 30px 0 10px;
+            text-align: center;
+        }
+        h1 .invert {
+            color: #363636;
+            text-shadow: 2px 2px #dbdbdb;
         }
         h2 {
             font-size: 22px;
@@ -54,29 +76,31 @@
     <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
 </head>
 <body>
+    <canvas id="canvas"></canvas>
     <div class="container">
-        <h1>duc radio</h1>
+        <h1>duc radio <span class="invert">duc radio</span></h1>
         <div id="player1"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
     <script>const ap = new APlayer({
     element: document.getElementById('player1'),
     mini: false,
-    autoplay: true,
+    autoplay: false,
     lrcType: 1,
     mutex: true,
     preload: 'metadata',
     audio: [{
         name: 'uwu',
         artist: 'duckr',
-        url: 'https://po5.github.io/dradio/uwu.ogg',
+        url: 'uwu.ogg',
         cover: 'https://po5.github.io/dradio/duck.png',
         theme: '#ebe857',
         loop: 'none',
-        lrc: '[00:00.00]welcome\n[00:01.00]to\n[00:02.00]the\n[00:03.00]duckstream\n[00:05.00]​[00:05.10]uwu'
+        lrc: '[00:00.00]welcome\n[00:02.00]to\n[00:03.00]the\n[00:04.00]duckstream\n[00:05.00]​[00:05.10]uwu'
     }]
 });
 
+let init0 = false;
 let init = false;
 
 function wait(ms) {
@@ -86,6 +110,8 @@ function wait(ms) {
 let player;
 
 ap.on('play', async function () {
+    init0 = true;
+
     if (ap.list.index != 0) {
         player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
           onMetadata: (metadata) => {
@@ -117,8 +143,9 @@ ap.on('play', async function () {
     }
 });
 
-document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
-document.addEventListener('click', () => {if (!init) {ap.play()}})
+//document.addEventListener('mousedown', () => {if (!init0) {init0=true;ap.play();}})
+document.addEventListener('click', () => {if (!init0) {init0=true;ap.play();}})
+
 </script>
 </body>
 </html>

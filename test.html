@@ -255,7 +255,7 @@ function newContext() {
         presetKeys = _.keys(presets);
         presetIndex = Math.floor(Math.random() * presetKeys.length);
 
-        visualizer = butterchurn.default.createVisualizer(audioContext, canvas , {
+        visualizer = butterchurn.default.createVisualizer(audioContext, canvas, {
           width: document.body.clientWidth,
           height: document.body.clientHeight,
           pixelRatio: window.devicePixelRatio || 1,
