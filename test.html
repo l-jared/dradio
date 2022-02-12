@@ -7,12 +7,23 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+        }
+        #canvas {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
         }
         .container {
             max-width: 32rem;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 150px;
+            z-index: 2;
         }
         h1 {
             font-size: 54px;
@@ -58,7 +69,7 @@
     <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
 </head>
 <body>
-    <canvas id="canvas" width="800" height="800"></canvas>
+    <canvas id="canvas"></canvas>
     <div class="container">
         <h1>duc radio</h1>
         <div id="player1"></div>
@@ -235,8 +246,8 @@ function newContext() {
         presetIndex = Math.floor(Math.random() * presetKeys.length);
 
         visualizer = butterchurn.default.createVisualizer(audioContext, canvas , {
-          width: 800,
-          height: 600,
+          width: document.body.clientWidth,
+          height: document.body.clientHeight,
           pixelRatio: window.devicePixelRatio || 1,
           textureRatio: 1,
         });
@@ -253,7 +264,7 @@ ap.on('play', async function () {
     init0 = true;
 
     if (ap.list.index != 0) {
-        /*player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
+        player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
           onMetadata: (metadata) => {
             const stuff = metadata["TITLE"].split(/ - (.*)/);
             document.querySelector(".aplayer-title").innerText = stuff[1];
@@ -262,14 +273,14 @@ ap.on('play', async function () {
           audioElement: ap.audio,
           metadataTypes: ["ogg"]
         });
-        player.play();*/
+        player.play();
         await wait(100);
         ap.list.remove(0);
         //ap.notice('Welcome to the duckstream', 2000);
         return;
     }
     if (!init) {
-    init = true;/*
+    init = true;
     ap.addAudio([
             {
                 name: 'duck radio',
@@ -279,12 +290,12 @@ ap.on('play', async function () {
                 theme: '#ebe857',
                 lrc: '[00:00.00]With your host: theduckr'
             }
-        ])*/
+        ])
     }
 });
 
-document.addEventListener('mousedown', () => {if (!init0) {newContext();init0=true;}})
-document.addEventListener('click', () => {if (!init0) {newContext();init0=true;}})
+document.addEventListener('mousedown', () => {if (!init0) {newContext();init0=true;ap.play();}})
+document.addEventListener('click', () => {if (!init0) {newContext();init0=true;ap.play();}})
 
 </script>
 </body>
