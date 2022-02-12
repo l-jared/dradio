@@ -75,22 +75,17 @@
     }]
 });
 
-let init = false;
-
 function wait(ms) {
   return new Promise(rs => setTimeout(rs, ms));
 }
 
 ap.on('play', async function () {
-    if (init) {
-        if (ap.list.index != 0) {
-            await wait(100);
-            ap.list.remove(0);
-            ap.notice('Welcome to the duckstream', 2000);
-        }
+    if (ap.list.index != 0) {
+        await wait(100);
+        ap.list.remove(0);
+        ap.notice('Welcome to the duckstream', 2000);
         return;
     }
-    init = true;
     ap.addAudio([
             {
                 name: 'duck radio',
