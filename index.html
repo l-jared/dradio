@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="1;url=http://m.amv.org.mx/index.php?q=https%3A%2F%2Fpo5.github.io%2Fdradio%2Findex-remote.html&hl=0" />
     <title>duc radio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -47,14 +46,68 @@
             display: none !important;
         }
     </style>
+    <link rel="stylesheet" href="https://po5.github.io/dradio/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
+    <script src="https://po5.github.io/dradio/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>duc radio</h1>
-        <a href="http://m.amv.org.mx/index.php?q=https%3A%2F%2Fpo5.github.io%2Fdradio%2Findex-remote.html&hl=0">loading...</a>
+        <div id="player1"></div>
     </div>
-    <script type="text/javascript">
-        window.location = "http://m.amv.org.mx/index.php?q=https%3A%2F%2Fpo5.github.io%2Fdradio%2Findex-remote.html&hl=0"
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+    <script>const ap = new APlayer({
+    element: document.getElementById('player1'),
+    mini: false,
+    autoplay: true,
+    lrcType: false,
+    mutex: true,
+    preload: 'none',
+    audio: [{
+        name: 'duck radio',
+        artist: 'duckr',
+        url: 'https://po5.github.io/dradio/uwu.ogg',
+        cover: 'https://po5.github.io/dradio/duck.png',
+        theme: '#ebe857',
+        loop: 'none'
+    }]
+});
+
+let init = false;
+let init2 = false;
+
+function wait(ms) {
+  return new Promise(rs => setTimeout(rs, ms));
+}
+
+ap.on('play', async function () {
+    await wait(1000);
+
+    if (init) {
+        if (!init2 && ap.list.index != 0) {
+            await wait(100);
+            ap.list.remove(0);
+            ap.notice('Welcome to the duckstream', 2000);
+        }
+        init2 = true;
+        return;
+    }
+    init = true;
+    ap.addAudio([
+            {
+                name: 'duck radio',
+                artist: 'duckr',
+                url: 'https://radio.letonet.fr:8000/duck-radio',
+                cover: 'https://po5.github.io/dradio/duck.png',
+                theme: '#ebe857'
+            }
+        ])
+});
+
+document.addEventListener('mousedown', () => {if (!init) {ap.play()}})
+document.addEventListener('click', () => {if (!init) {ap.play()}})
+</script>
 </body>
 </html>
