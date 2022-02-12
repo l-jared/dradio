@@ -145,6 +145,22 @@ function newContext() {
         sourceNode.start(0);
       }
 
+      function playElementSource(element) {
+        if (!rendering) {
+          rendering = true;
+          startRenderer();
+        }
+
+        if (sourceNode) {
+          sourceNode.disconnect();
+        }
+
+        sourceNode = audioContext.createMediaElementSource(ap.audio);
+        connectToAudioAnalyzer(sourceNode);
+
+        sourceNode.start(0);
+      }
+
       function loadLocalFiles(files, index = 0) {
         audioContext.resume();
 
@@ -229,7 +245,7 @@ function newContext() {
       }
 
       initPlayer();
-      connectToAudioAnalyzer(audioContext.createMediaElementSource(ap.audio));
+      playElementSource(ap.audio);
   }
 }
 
