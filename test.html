@@ -229,7 +229,7 @@ function newContext() {
       }
 
       initPlayer();
-      audioContext.createMediaElementSource(ap.audio);
+      connectToAudioAnalyzer(audioContext.createMediaElementSource(ap.audio));
   }
 }
 
