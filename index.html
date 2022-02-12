@@ -67,6 +67,22 @@
         .aplayer-icon-loop, .aplayer-icon-order, .aplayer-icon-menu, .aplayer-dtime {
             display: none !important;
         }
+        #duck {
+            width: 300px;
+            overflow: hidden;
+            background-position: right;
+            background-image: url(ducc.gif);
+        }
+        #duck img {
+            width: 600px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            margin-left: 96px;
+            margin-top: 200px;
+        }
+        #duck img:hover {
+            opacity: 0;
+        }
     </style>
     <link rel="stylesheet" href="https://po5.github.io/dradio/APlayer.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
@@ -80,6 +96,7 @@
     <div class="container">
         <h1>duc radio <span class="invert">duc radio</span></h1>
         <div id="player1"></div>
+        <div id="duck"><img src="ducc.gif"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
     <script>const ap = new APlayer({
