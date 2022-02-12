@@ -91,9 +91,6 @@ function wait(ms) {
 
 let player;
 
-ap.on('play', async function () {
-    init0 = true;
-    if (!init) {
       var visualizer = null;
       var rendering = false;
       var audioContext = new AudioContext();
@@ -230,7 +227,9 @@ ap.on('play', async function () {
 
       initPlayer();
       audioContext.createMediaElementSource(ap.audio);
-    }
+
+ap.on('play', async function () {
+    init0 = true;
 
     if (ap.list.index != 0) {
         /*player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
