@@ -28,7 +28,7 @@ let player;
 function dradio() {
     var m = new Date();
     const cur = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
-    fetch("https://api.countapi.xyz/get/dradio/"+cur).then(response => response.json()).then(data => document.getElementById("viewers").innerText = data.value + " viewers");
+    fetch("https://api.countapi.xyz/get/dradio/"+cur).then(response => response.json()).then(data => document.getElementById("viewers").innerText = data.value + " viewers today");
 }
 
 ap.on('play', async function () {
