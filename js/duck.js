@@ -25,6 +25,12 @@ function wait(ms) {
 
 let player;
 
+function dradio() {
+    var m = new Date();
+    const cur = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
+    fetch("https://api.countapi.xyz/get/dradio/"+cur).then(response => response.json()).then(data => document.getElementById("viewers").innerText = data.value + " viewers");
+}
+
 ap.on('play', async function () {
     init0 = true;
 
@@ -54,7 +60,10 @@ ap.on('play', async function () {
     if (!dicks || cur != dicks) {
         localStorage.setItem("last", cur);
         fetch("https://api.countapi.xyz/hit/dradio/"+cur).then(response => response.json()).then(data => document.getElementById("viewers").innerText = data.value + " viewers");
+    } else {
+        dradio();
     }
+    setInterval(dradio, 60000);
     ap.addAudio([
             {
                 name: 'duck radio',
