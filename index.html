@@ -2,168 +2,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>duc radio</title>
+    <title>eva radio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
-            background: #191c26;
-        }
-        #canvas {
-            position: fixed;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            min-width: 100vw;
-            min-height: 100vh;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 5s ease-in-out;
-            filter: contrast(30%) brightness(0.2) grayscale(1) sepia(0.7);
-        }
-        .container {
-            max-width: 32rem;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 150px;
-            z-index: 2;
-        }
-        h1 {
-            font-size: 54px;
-            color: #dbdbdb;
-            text-shadow: 2px 2px black;
-            margin: 30px 0 10px;
-            text-align: center;
-        }
-        h1 .invert {
-            color: #363636;
-            text-shadow: 2px 2px #dbdbdb;
-        }
-        h2 {
-            font-size: 22px;
-            color: #555;
-        }
-        h3 {
-            font-size: 24px;
-            color: #555;
-        }
-        hr {
-            display: block;
-            width: 7rem;
-            height: 1px;
-            margin: 2.5rem 0;
-            background-color: #eee;
-            border: 0;
-        }
-        a, a:visited {
-            color: #08c;
-            text-decoration: none;
-        }
-        p {
-            font-size: 18px;
-        }
-        .aplayer-icon-loop, .aplayer-icon-order, .aplayer-icon-menu, .aplayer-dtime {
-            display: none !important;
-        }
-        #duck {
-            width: 300px;
-            overflow: hidden;
-            background-position: right;
-            background-image: url(ducc.gif);
-            margin-left: 96px;
-            margin-top: 200px;
-        }
-        #duck img {
-            width: 600px;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
-            margin-top: 2px;
-        }
-        #duck img:hover {
-            opacity: 0;
-        }
-    </style>
-    <link rel="stylesheet" href="https://po5.github.io/dradio/APlayer.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/APlayer.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vconsole/dist/vconsole.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
-    <script src="https://po5.github.io/dradio/APlayer.min.js"></script>
-    <script src="icecast-metadata-player-1.11.3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+    <script src="js/APlayer.min.js"></script>
+    <script src="js/icecast-metadata-player-1.11.3.min.js"></script>
 </head>
 <body>
     <canvas id="canvas"></canvas>
     <div class="container">
-        <h1>duc radio <span class="invert">duc radio</span></h1>
+        <h1>eva radio <span class="invert">eva radio</span></h1>
+        <h2>duck</h2>
         <div id="player1"></div>
-        <div id="duck"><img src="ducc.gif"></div>
+        <small><span id="viewers"></span></small>
+        <div id="duck"><img src="img/ducc.gif"></div><br>
+        <h3>if there is an error in the stream, or you use mpv, <a href="https://radio.letonet.fr:8000/duck-radio">use this link</a>.</h3><h3>github is hosting this<br>eva did a player thing</h3>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
-    <script>const ap = new APlayer({
-    element: document.getElementById('player1'),
-    mini: false,
-    autoplay: false,
-    lrcType: 1,
-    mutex: true,
-    preload: 'metadata',
-    audio: [{
-        name: 'uwu',
-        artist: 'duckr',
-        url: 'uwu.ogg',
-        cover: 'https://po5.github.io/dradio/duck.png',
-        theme: '#ebe857',
-        loop: 'none',
-        lrc: '[00:00.00]welcome\n[00:02.00]to\n[00:03.00]the\n[00:04.00]duckstream\n[00:05.00]​[00:05.10]uwu'
-    }]
-});
-
-let init0 = false;
-let init = false;
-
-function wait(ms) {
-  return new Promise(rs => setTimeout(rs, ms));
-}
-
-let player;
-
-ap.on('play', async function () {
-    init0 = true;
-
-    if (ap.list.index != 0) {
-        player = new IcecastMetadataPlayer("https://radio.letonet.fr:8000/duck-radio", {
-          onMetadata: (metadata) => {
-            const stuff = metadata["TITLE"].split(/ - (.*)/);
-            document.querySelector(".aplayer-title").innerText = stuff[1];
-            document.querySelector(".aplayer-author").innerText = " - "+stuff[0];
-          },
-          audioElement: ap.audio,
-          metadataTypes: ["ogg"]
-        });
-        player.play();
-        await wait(100);
-        ap.list.remove(0);
-        //ap.notice('Welcome to the duckstream', 2000);
-        return;
-    }
-    if (!init) {
-    init = true;
-    ap.addAudio([
-            {
-                name: 'duck radio',
-                artist: 'duckr',
-                url: 'https://radio.letonet.fr:8000/duck-radio',
-                cover: 'https://po5.github.io/dradio/duck.png',
-                theme: '#ebe857',
-                lrc: '[00:00.00]With your host: theduckr'
-            }
-        ])
-    }
-});
-
-//document.addEventListener('mousedown', () => {if (!init0) {init0=true;ap.play();}})
-document.addEventListener('click', () => {if (!init0) {init0=true;ap.play();}})
-
-</script>
+    <script src="js/duck.js"></script>
 </body>
 </html>
